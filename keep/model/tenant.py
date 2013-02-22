@@ -32,7 +32,7 @@ class Tenant(Base):
     """
 
     tenant_id = Column(String)
-    secrets = relationship('Secret', secondary=_secrets)
+    # secrets = relationship('Secret', secondary=_secrets)
 
     def __init__(self, tenant_id, secrets=[]):
         self.tenant_id = tenant_id
