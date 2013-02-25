@@ -35,7 +35,7 @@ class WhenTestingVersionResource(unittest.TestCase):
         self.assertEqual('current', parsed_body['v1'])
 
 
-class WhenCreatingTenantsUsingTenantResource(unittest.TestCase):
+class WhenCreatingTenantsUsingTenantsResource(unittest.TestCase):
 
     def setUp(self):
         db_filter = MagicMock()
@@ -54,7 +54,7 @@ class WhenCreatingTenantsUsingTenantResource(unittest.TestCase):
         self.req.stream = self.stream
 
         self.resp = MagicMock()
-        self.resource = TenantResource(self.db_session)
+        self.resource = TenantsResource(self.db_session)
 
     def test_should_throw_exception_for_tenants_that_exist(self):
         with self.assertRaises(falcon.HTTPError):

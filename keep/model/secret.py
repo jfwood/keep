@@ -19,27 +19,24 @@
 
 """Represents a secret to store in Cloud Keep."""
 
+#import keep.model.Tenant
 from base import Base
 from sqlalchemy import Table, Column, String
 from sqlalchemy import Integer, ForeignKey, Boolean
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base, declared_attr
 
-
-class Secret(Base):
-    """
-    A secret is any information that needs to be stored and protected within Cloud Keep.
-    """
-    _registered_secrets = Table(
-        'registered_secrets', Base.metadata,
-        Column('tenant_id', Integer,
-               ForeignKey('tenant.id')),
-        Column('secret_id', Integer,
-               ForeignKey('secret.id')))
-
-    secret_id = Column(String)
-
-    def __init__(self, tenant_id, secrets=[]):
-        self.tenant_id = tenant_id
-        self.secrets = secrets
+#
+# class Secret(Base):
+#     """
+#     A secret is any information that needs to be stored and protected within Cloud Keep.
+#     """
+#
+#     secret_id = Column(String)
+#     name = Column(String)
+#     tenant_id = Column(Integer, ForeignKey('tenant.id'))
+#     tenant = relationship(Tenant, primaryjoin=tenant_id == Tenant.id)
+#
+#     def __init__(self, secret_id):
+#         self.secret_id = secret_id
 

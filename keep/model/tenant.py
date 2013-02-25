@@ -22,7 +22,7 @@
 from base import Base
 from sqlalchemy import Table, Column, String
 from sqlalchemy import Integer, ForeignKey, Boolean
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship, relation, backref
 from sqlalchemy.ext.declarative import declarative_base, declared_attr
 
 
@@ -31,12 +31,37 @@ class Tenant(Base):
     Tenants are users that wish to store secret information within Cloud Keep.
     """
 
-    tenant_id = Column(String)
+    tenant_id = Column(Integer, primary_key=True)
     # secrets = relationship('Secret', secondary=_secrets)
+    # secrets = relationship("Secret",
+    #                          order_by="desc(Secret.name)",
+    #                          primaryjoin="Secret.tenant_id==Tenant.tenant_id")
+
 
     def __init__(self, tenant_id):
         self.tenant_id = tenant_id
-#    def __init__(self, tenant_id, secrets=[]):
-#        self.tenant_id = tenant_id
-#        self.secrets = secrets
+
+    def __init__(self, tenant_id, secrets=[]):
+        self.tenant_id = tenant_id
+        self.secrets = secrets
+
+
+class Secret(Base):
+    """
+    A secret is any information that needs to be stored and protected within Cloud Keep.
+    """
+
+    secret_id = Column(Integer, primary_key=True)
+    name = Column(String)
+    tenant_id = Column(Integer, ForeignKey('tenant.id'))
+    # tenant = relationship(Tenant, primaryjoin=tenant_id == Tenant.id)
+
+    # creates a bidirectional relationship
+    # from Secret to Tenant it's Many-to-One
+    # from Tenant to Secret it's One-to-Many
+    tenant = relation(Tenant, backref=backref('secret', order_by=secret_id))
+
+    def __init__(self, secret_id):
+        self.secret_id = secret_id
+
 

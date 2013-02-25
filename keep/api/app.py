@@ -36,16 +36,18 @@ init_tenant_model()
 
 # Resources
 versions = VersionResource()
-#tenant = TenantResource(db_session())
-#user = UserResource(db_session())
+tenants = TenantsResource(db_session())
+tenant = TenantResource(db_session())
+secrets = SecretsResource(db_session())
+secret = SecretResource(db_session())
 
 # Routing
 application = api = falcon.API()
 
 api.add_route('/', versions)
-#api.add_route('/v1', tenant)
-#api.add_route('/v1/{tenant_id}', user)
-#api.add_route('/v1/{tenant_id}/profiles', profiles)
-#api.add_route('/v1/{tenant_id}/profiles/{profile_id}', profile)
+api.add_route('/v1', tenants)
+api.add_route('/v1/{tenant_id}', tenant)
+api.add_route('/v1/{tenant_id}/secrets', secrets)
+api.add_route('/v1/{tenant_id}/secrets/{secret_id}', secret)
 
 
