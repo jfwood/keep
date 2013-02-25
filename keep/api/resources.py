@@ -1,5 +1,6 @@
 import json
 import falcon
+import logging
 
 from keep.api import ApiResource, load_body, abort
 from keep.model.util import find_tenant
@@ -40,6 +41,7 @@ class TenantsResource(ApiResource):
     def on_post(self, req, resp):
         body = load_body(req)
         username = body['username']
+        logging.debug('Username is {0}'.format(username))
 
         tenant = find_tenant(self.db, username=username)
 

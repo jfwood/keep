@@ -19,6 +19,7 @@
 
 """Generic Node base class for all workers that run on hosts."""
 
+import logging
 from base import Base
 from sqlalchemy import Table, Column, String
 from sqlalchemy import Integer, ForeignKey, Boolean
@@ -31,14 +32,16 @@ class Tenant(Base):
     Tenants are users that wish to store secret information within Cloud Keep.
     """
 
+    logging.debug('In Tenant table setup')
+
     __tablename__ = "tenant"
 
     id = Column(Integer, primary_key=True)
     username = Column(String)
     # secrets = relationship('Secret', secondary=_secrets)
-    # secrets = relationship("Secret",
-    #                          order_by="desc(Secret.name)",
-    #                          primaryjoin="Secret.tenant_id==Tenant.tenant_id")
+    secrets = relationship("Secret",
+                        order_by="desc(Secret.name)",
+                        primaryjoin="Secret.tenant_id==Tenant.id")
 
 
     def __init__(self, username):
@@ -59,12 +62,12 @@ class Secret(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     tenant_id = Column(Integer, ForeignKey('tenant.id'))
-    # tenant = relationship(Tenant, primaryjoin=tenant_id == Tenant.id)
+    tenant = relationship(Tenant, primaryjoin=tenant_id == Tenant.id)
 
     # creates a bidirectional relationship
     # from Secret to Tenant it's Many-to-One
     # from Tenant to Secret it's One-to-Many
-    tenant = relation(Tenant, backref=backref('secret', order_by=id))
+    # tenant = relation(Tenant, backref=backref('secret', order_by=id))
 
     def __init__(self, tenant_id, name):
         self.tenant_id = tenant_id
