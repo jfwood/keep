@@ -48,7 +48,7 @@ class WhenCreatingTenantsUsingTenantsResource(unittest.TestCase):
         self.db_session.query.return_value = db_query
 
         self.stream = MagicMock()
-        self.stream.read.return_value = u'{ "tenant_id" : "1234" }'
+        self.stream.read.return_value = u'{ "username" : "1234" }'
 
         self.req = MagicMock()
         self.req.stream = self.stream

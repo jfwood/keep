@@ -7,14 +7,14 @@ def _empty_condition():
     pass
 
 
-def find_tenant(db_session, id=None, tenant_id=None,
+def find_tenant(db_session, id=None, username=None,
                 when_not_found=_empty_condition,
                 when_multiple_found=_empty_condition):
     try:
         if id:
             return db_session.query(Tenant).filter_by(id=id).one()
-        elif tenant_id:
-            return db_session.query(Tenant).filter_by(tenant_id=tenant_id).one()
+        elif username:
+            return db_session.query(Tenant).filter_by(username=username).one()
     except NoResultFound:
         when_not_found()
     except MultipleResultsFound:

@@ -39,20 +39,20 @@ class TenantsResource(ApiResource):
 
     def on_post(self, req, resp):
         body = load_body(req)
-        tenant_id = body['tenant_id']
+        username = body['username']
 
-        tenant = find_tenant(self.db, tenant_id=tenant_id)
+        tenant = find_tenant(self.db, username=username)
 
         if tenant:
-            abort(falcon.HTTP_400, 'Tenant with tenant_id {0} '
-                                   'already exists'.format(tenant_id))
+            abort(falcon.HTTP_400, 'Tenant with username {0} '
+                                   'already exists'.format(username))
 
-        new_tenant = Tenant(tenant_id)
+        new_tenant = Tenant(username)
         self.db.add(new_tenant)
         self.db.commit()
 
         resp.status = falcon.HTTP_201
-        resp.set_header('Location', '/v1/{0}'.format(tenant_id))
+        resp.set_header('Location', '/v1/{0}'.format(new_tenant.id))
 
 
 class TenantResource(ApiResource):
@@ -61,14 +61,14 @@ class TenantResource(ApiResource):
         self.db = db_session
 
     def on_get(self, req, resp, tenant_id):
-        tenant = find_tenant(self.db, tenant_id=tenant_id,
+        tenant = find_tenant(self.db, id=tenant_id,
                              when_not_found=_tenant_not_found)
 
         resp.status = falcon.HTTP_200
         resp.body = json.dumps(tenant.format())
 
     def on_delete(self, req, resp, tenant_id):
-        tenant = find_tenant(self.db, tenant_id=tenant_id,
+        tenant = find_tenant(self.db, id=tenant_id,
                              when_not_found=_tenant_not_found)
 
         self.db.delete(tenant)
@@ -83,7 +83,7 @@ class SecretsResource(ApiResource):
         self.db = db_session
 
     def on_get(self, req, resp, tenant_id):
-        tenant = find_tenant(self.db, tenant_id=tenant_id,
+        tenant = find_tenant(self.db, id=tenant_id,
                              when_not_found=_tenant_not_found)
 
         resp.status = falcon.HTTP_200
@@ -92,7 +92,7 @@ class SecretsResource(ApiResource):
         resp.body = json.dumps([s.format() for s in tenant.secrets])
 
     def on_post(self, req, resp, tenant_id):
-        tenant = find_tenant(self.db, tenant_id=tenant_id,
+        tenant = find_tenant(self.db, id=tenant_id,
                              when_not_found=_tenant_not_found)
 
         body = load_body(req)
