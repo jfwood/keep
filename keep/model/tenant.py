@@ -34,14 +34,15 @@ class Tenant(Base):
 
     logging.debug('In Tenant table setup')
 
-    __tablename__ = "tenant"
+    __tablename__ = "tenants"
 
     id = Column(Integer, primary_key=True)
     username = Column(String)
+    # secrets = relationship('Secret', backref='tenant', lazy='dynamic')
     # secrets = relationship('Secret', secondary=_secrets)
-    secrets = relationship("Secret",
-                        order_by="desc(Secret.name)",
-                        primaryjoin="Secret.tenant_id==Tenant.id")
+    # secrets = relationship("Secret",
+    #                     order_by="desc(Secret.name)",
+    #                     primaryjoin="Secret.tenant_id==Tenant.id")
 
 
     def __init__(self, username):
@@ -57,12 +58,13 @@ class Secret(Base):
     A secret is any information that needs to be stored and protected within Cloud Keep.
     """
 
-    __tablename__ = "secret"
+    __tablename__ = "secrets"
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    tenant_id = Column(Integer, ForeignKey('tenant.id'))
-    tenant = relationship(Tenant, primaryjoin=tenant_id == Tenant.id)
+    tenant_id = Column(Integer, ForeignKey('tenants.id'))
+    tenant = relationship("Tenant", backref=backref('secrets', order_by=id))
+    # tenant = relationship(Tenant, primaryjoin=tenant_id == Tenant.id)
 
     # creates a bidirectional relationship
     # from Secret to Tenant it's Many-to-One

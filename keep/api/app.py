@@ -34,6 +34,15 @@ def init_tenant_model():
 # Initialize the data model
 init_tenant_model()
 
+# test the database out
+from keep.model.tenant import Tenant
+jw_user = Tenant("jwoody")
+_Session.add(jw_user)
+
+# select all and print out all the results sorted by id
+for instance in _Session.query(Tenant).order_by(Tenant.id):
+    print instance.username
+
 # Resources
 versions = VersionResource()
 tenants = TenantsResource(db_session())
