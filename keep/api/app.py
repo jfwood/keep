@@ -1,6 +1,6 @@
 import falcon
 
-from keep.apiresources import *
+from keep.api.resources import *
 
 from config import config
 from sqlalchemy import create_engine, MetaData
@@ -36,11 +36,16 @@ init_tenant_model()
 
 # Resources
 versions = VersionResource()
-tenant = TenantResource(db_session())
+#tenant = TenantResource(db_session())
+#user = UserResource(db_session())
 
 # Routing
 application = api = falcon.API()
 
 api.add_route('/', versions)
-api.add_route('/v1/tenant', tenant)
+#api.add_route('/v1', tenant)
+#api.add_route('/v1/{tenant_id}', user)
+#api.add_route('/v1/{tenant_id}/profiles', profiles)
+#api.add_route('/v1/{tenant_id}/profiles/{profile_id}', profile)
+
 

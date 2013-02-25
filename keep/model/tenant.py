@@ -34,7 +34,9 @@ class Tenant(Base):
     tenant_id = Column(String)
     # secrets = relationship('Secret', secondary=_secrets)
 
-    def __init__(self, tenant_id, secrets=[]):
+    def __init__(self, tenant_id):
         self.tenant_id = tenant_id
-        self.secrets = secrets
+#    def __init__(self, tenant_id, secrets=[]):
+#        self.tenant_id = tenant_id
+#        self.secrets = secrets
 
