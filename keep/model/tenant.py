@@ -52,6 +52,10 @@ class Tenant(Base):
         self.username = username
         self.secrets = secrets
 
+    def format(self):
+        return {'id': self.id,
+            'username': self.username}
+
 
 class Secret(Base):
     """
@@ -75,4 +79,8 @@ class Secret(Base):
         self.tenant_id = tenant_id
         self.name = name
 
+    def format(self):
+        return {'id': self.id,
+                'name': self.username,
+                'tenant_id': self.tenant_id}
 
