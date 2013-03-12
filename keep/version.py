@@ -17,5 +17,5 @@
 Cloud Keep version
 """
 
-__version__ = '0.1.9'
-__version_info__ = tuple(__version__.split('0.1.9'))
+__version__ = '0.1.10dev'
+__version_info__ = tuple(__version__.split('0.1.10dev'))
