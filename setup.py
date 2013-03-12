@@ -39,15 +39,3 @@ setup(
     scripts=['bin/startkeep'],
     packages = find_packages(exclude=['ez_setup'])
 )
-
-
-
-
-
-
-
-
-
-
-
-
