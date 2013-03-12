@@ -27,7 +27,10 @@ import sys
 
 # Determine version of this application.
 PKG = "keep"
-VERSIONFILE = os.path.join("..", PKG, "version.py") 
+VERSIONFILE = os.path.join(PKG, "version.py") 
+current_dir = os.getcwd()
+if current_dir.endswith('bin'):
+    VERSIONFILE = os.path.join("..", PKG, "version.py") 
 
 def get_version():
     version = "unknown"

@@ -27,7 +27,11 @@ import sys
 
 # Determine version of this application.
 PKG = "keep"
-VERSIONFILE = os.path.join("..", PKG, "version.py") 
+VERSIONFILE = os.path.join(PKG, "version.py")
+SIMPLEFILE = 'versiononly.txt' 
+current_dir = os.getcwd()
+if current_dir.endswith('bin'):
+    VERSIONFILE = os.path.join("..", PKG, "version.py") 
 
 def get_version():
     version = "unknown"
@@ -71,12 +75,15 @@ def update_version(version):
 if __name__ == '__main__':
     version = get_version()
     if version:
+        # Create a release version and update the version.py file accordingly.
         release = release_version(version)
         print 'version: ', version
         print 'release: ', release
         update_version(release)
 
-
+        # Output the version number to a flat file.
+        with open(SIMPLEFILE, 'w') as outver:
+            outver.write(release)
 
 
 
