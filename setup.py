@@ -26,6 +26,7 @@ setup(
     description = '',
     author = 'Project Keep',
     author_email = '',
+    include_package_data=True,
     install_requires = [
         "falcon",
         "mock",
@@ -35,7 +36,6 @@ setup(
     ],
     test_suite = 'keep.tests',
     zip_safe = False,
-    include_package_data = True,
     scripts=['bin/startkeep'],
     packages = find_packages(exclude=['ez_setup'])
 )
