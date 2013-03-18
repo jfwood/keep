@@ -6,22 +6,24 @@
 # description: Use uwsgi to run Cloud Keep python and wsgi web app.
 # processname: keep_init.sh
 
-PATH=/opt/uwsgi:/sbin:/bin:/usr/sbin:/usr/bin
-DAEMON=/opt/uwsgi/uwsgi
-VENV=vkeep
+PKG=keep
+PATH=/opt/uwsgi:/sbin:/bin:/usr/sbin:/usr/bin:/etc/default/$PKG
+VENV=v$PKG
+DAEMON=/usr/local/bin/$VENV/bin/uwsgi
+#DAEMON=/opt/uwsgi/uwsgi
 
 OWNER=cloud_keep
 
 NAME=keep_init
-DESC=Cloud Keep start script (web-node)
-CONF_FILE=/etc/default/keep_web_init.ini
+DESC='Cloud Keep start script (web-node)'
+CONF_FILE=/etc/default/$PKG/keep_web_init.ini
 
 
 test -x $DAEMON || exit 0
 
 # Include cloud keep defaults if available
-if [ -f /etc/default/keep_web_init.conf ] ; then
-	. /etc/default/keep_web_init.conf
+if [ -f /etc/default/$PKG/keep_web_init.conf ] ; then
+	. /etc/default/$PKG/keep_web_init.conf
 fi
 
 set -e
@@ -33,7 +35,7 @@ get_pid() {
 }   
 
 #DAEMON_OPTS="-s 127.0.0.1:9001 -M 4 -t 30 -A 4 -p 4 -d /var/log/keep_web.log --pidfile /var/run/$NAME.pid --pythonpath $PYTHONPATH --module $MODULE"
-DAEMON_OPTS="-H $VENV --ini $CONF_FILE"
+DAEMON_OPTS="-H /usr/local/bin/$VENV --ini $CONF_FILE"
 
 case "$1" in
   start)
@@ -41,7 +43,8 @@ case "$1" in
         PID=$(get_pid)
         if [ -z "$PID" ]; then
             [ -f /var/run/$NAME.pid ] && rm -f /var/run/$NAME.pid
-
+            echo 'Paths...'
+            env | grep PATH
             touch /var/run/$NAME.pid                                         
             chown $OWNER /var/run/$NAME.pid
 	    su - $OWNER -pc "source /usr/local/bin/$VENV/bin/activate"

@@ -2,6 +2,7 @@ import json
 import falcon
 import logging
 
+from keep.version import __version__
 from keep.api import ApiResource, load_body, abort
 from keep.model.util import find_tenant
 from keep.model.util import find_secret
@@ -30,7 +31,8 @@ class VersionResource(ApiResource):
 
     def on_get(self, req, resp):
         resp.status = falcon.HTTP_200
-        resp.body = json.dumps({'v1': 'current'})
+        resp.body = json.dumps({'v1': 'current',
+                                'build': __version__})
 
 
 class TenantsResource(ApiResource):
