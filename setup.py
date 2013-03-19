@@ -36,7 +36,7 @@ setup(
     ],
     test_suite = 'keep.tests',
     zip_safe = False,
-    scripts=['bin/startkeep'],
+    scripts=['bin/startkeep', 'bin/keep_web_init.sh', 'config.py', 'bin/keep_web_init.ini'],
     packages = find_packages(exclude=['ez_setup']),
     data_files = [
                  ('/etc/default/keep', ['config.py', 'bin/keep_web_init.ini', 'bin/keep_web_init.sh'])
