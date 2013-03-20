@@ -1,4 +1,13 @@
-include setup.*
-recursive-include public *
+include ChangeLog
+include README.rst builddeb.sh
+include MANIFEST.in pylintrc
+include Authors
+include nosetests.xml
+include HACKING.rst
+include LICENSE
+include setup.cfg
+include babel.cfg tox.ini
 include config.py
-include bin/*
+include keep/tests/api/resources_test.py
+graft tools
+graft etc

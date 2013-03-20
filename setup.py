@@ -20,25 +20,34 @@ try:
 except EnvironmentError:
     pass # Okay, there is no version file.
 
+class local_sdist(sdist):
+    """Customized sdist hook - builds the ChangeLog file from VC first"""
+
+        def run(self):
+            sdist.run(self)
+
+cmdclass = {'sdist': local_sdist}
+
 setup(
     name = 'keep',
     version = version,
-    description = '',
-    author = 'Project Keep',
-    author_email = '',
+    description = 'The Keep project provides a service for storing '
+                  'sensitive client information such as encryption keys',
+    license='Apache License (2.0)',
+    author = 'OpenStack',
+    author_email = 'john.wood@rackspace.com',
+    url='http://keep.openstack.org/',
+    packages = find_packages(exclude=['bin']),
+    test_suite = 'nose.collector',
+    cmdclass=cmdclass,
     include_package_data=True,
-    install_requires = [
-        "falcon",
-        "mock",
-        "wsgiref",
-        "uWSGI",
-        "pymongo",
+    classifiers=[
+        'Development Status :: 4 - Beta',
+        'License :: OSI Approved :: Apache Software License',
+        'Operating System :: POSIX :: Linux',
+        'Programming Language :: Python :: 2.7',
+        'Environment :: No Input/Output (Daemon)',
     ],
-    test_suite = 'keep.tests',
-    zip_safe = False,
-    scripts=['bin/startkeep', 'bin/keep_web_init.sh', 'config.py', 'bin/keep_web_init.ini'],
-    packages = find_packages(exclude=['ez_setup']),
-    data_files = [
-                 ('/etc/default/keep', ['config.py', 'bin/keep_web_init.ini', 'bin/keep_web_init.sh'])
-                 ]
+    scripts=['bin/keep_web_init.sh'],
+    py_modules=[]
 )
