@@ -8,6 +8,7 @@ except ImportError:
     from setuptools import setup, find_packages
 
 # Determine version of this application.
+# TBD: Revisit version flows and processing once integrating with OpenStack, see glance setup.py
 PKG = "keep"
 VERSIONFILE = os.path.join(PKG, "version.py") 
 version = "unknown"
@@ -27,6 +28,8 @@ class local_sdist(sdist):
             sdist.run(self)
 
 cmdclass = {'sdist': local_sdist}
+
+# TDB: Revisit sphinx documentation needs once move to OpenStack...see glance setup.py
 
 setup(
     name = 'keep',
@@ -48,6 +51,6 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Environment :: No Input/Output (Daemon)',
     ],
-    scripts=['bin/keep_web_init.sh'],
+    scripts=['bin/keep-api'],
     py_modules=[]
 )

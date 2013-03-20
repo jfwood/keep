@@ -1,0 +1,7 @@
+/var/log/keep/keep-api.log {
+    daily
+    missingok
+    compress
+    delaycompress
+    notifempty
+}

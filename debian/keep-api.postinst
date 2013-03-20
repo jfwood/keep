@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# TBD: Should Keep ask user for config info, such as 'use lightweight/standalone mode?'?  If so, then 
+#    take a look at glance's glance-api.postinst

@@ -1,7 +1,7 @@
 # Translations template for keep. 
 # Copyright (C) 2013 ORGANIZATION
 # This file is distributed under the same license as 
-# the glance project. FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+# the keep project. FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
 #
 #, fuzzy
 msgid ""
