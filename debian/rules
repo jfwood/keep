@@ -24,7 +24,7 @@ endif
 
 override_dh_auto_clean:
 	dh_auto_clean
-	debconf-updatepo
+# TDB: OpenStack:	debconf-updatepo
 # TBD: OpenStack:	rm -rf doc/build
 	rm -rf build keep.egg-info 
 # TBD: OpenStack:	po/keep.pot keep/vcsversion.py
