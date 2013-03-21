@@ -36,7 +36,7 @@ Homepage: http://launchpad.net/keep
 Vcs-Browser: https://github.com/jfwood/keep
 Vcs-Git: git://github.com/jfwood/keep.git
 
-Package: keep-api
+Package: python-keep
 Architecture: all
 Section: python
 Depends: ${python:Depends}, ${misc:Depends},
@@ -58,3 +58,28 @@ Description: OpenStack Key Management Service - Python client library
  client information such as encryption keys.
  .
  This package contains the Python client libraries.
+
+Package: keep-common
+Architecture: all
+Section: python
+Depends: ${python:Depends}, ${misc:Depends},
+ python-keep (= ${source:Version}),
+ adduser,
+ debconf,
+Description: OpenStack Key Management Service - common files
+ The Keep project provides services for storing and retrieving sensitive 
+ client information such as encryption keys.
+ .
+ This package contains common files for Keep.
+
+Package: keep-api
+Architecture: all
+Section: python
+Depends: ${python:Depends}, ${misc:Depends},
+ keep-common (= ${source:Version})
+Description: OpenStack Key Management Service - API Server
+ The Keep project provides services for storing and retrieving sensitive 
+ client information such as encryption keys.
+ .
+ This package contains the Keep API Server.
+

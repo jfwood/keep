@@ -1,5 +1,5 @@
-keep (0.1.42) unstable; urgency=high
+keep (0.1.42-1) unstable; urgency=high
 
   * Initial upload.
 
- -- Soren Hansen <soren@ubuntu.com>  Wed, 19 Jan 2011 12:01:32 +0100
+ -- John Wood <john.wood@rackspace.com>  Wed, 20 Mar 2013 12:01:32 +0100
