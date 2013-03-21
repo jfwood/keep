@@ -36,7 +36,7 @@ Homepage: http://launchpad.net/keep
 Vcs-Browser: https://github.com/jfwood/keep
 Vcs-Git: git://github.com/jfwood/keep.git
 
-Package: keep_web_init
+Package: keep-api
 Architecture: all
 Section: python
 Depends: ${python:Depends}, ${misc:Depends},
