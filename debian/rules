@@ -8,8 +8,7 @@
 
 ifeq (,$(findstring nocheck, $(DEB_BUILD_OPTIONS)))
 override_dh_auto_test:
-# TBD: Should we also have this sort of testing, or rely on nosetests instead?
-#	bash run_tests.sh -N || true
+	bash run_tests.sh -N || true
 endif
 
 # TBD: Use this when we are ready for sphinx docs
