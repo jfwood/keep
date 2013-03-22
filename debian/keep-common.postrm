@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -e
+
+case $1 in
+    purge)
+	echo "Purging keep. Backup of /var/lib/keep can be found at /var/lib/keep.tar.bz2" >&2
+	if ( getent passwd keep) > /dev/null 2>&1; then
+	    userdel keep || true
+	fi
+
+	if ( getent group keep) > /dev/null 2>&1; then
+	    groupdel keep || true
+	fi
+
+	[ -e /var/lib/keep ] && rm -rf /var/lib/keep
+	[ -e /var/log/keep ] && rm -rf /var/log/keep
+	;;
+esac
+
+#DEBHELPER#

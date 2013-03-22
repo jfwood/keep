@@ -1,8 +1,14 @@
 #!/bin/sh
-set -e case $1 in
+
+set -e
+
+case $1 in
     remove|purge)
-	if [ -x /etc/init.d/keep-api ]; then
-	    invoke-rc.d keep-api stop || true
-	fi
-	;; esac
+        if [ -x /etc/init.d/keep-api ]; then
+            invoke-rc.d keep-api stop || true
+        fi
+        ;;
+esac
+
 #DEBHELPER#
+

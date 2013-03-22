@@ -83,3 +83,13 @@ Description: OpenStack Key Management Service - API Server
  .
  This package contains the Keep API Server.
 
+Package: keep
+Architecture: all
+Section: python
+Depends: keep-api (= ${source:Version}),
+ ${misc:Depends}
+Description: OpenStack Key Management Service - metapackage
+ The Keep project provides services for storing and retrieving sensitive 
+ client information such as encryption keys.
+ .
+ This is a dependency package to install all of the Glance suite.
