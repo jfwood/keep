@@ -1,4 +1,15 @@
 #!/bin/sh
 
-# TBD: Should Keep ask user for config info, such as 'use lightweight/standalone mode?'?  If so, then 
-#    take a look at glance's glance-api.postinst
+set -e
+
+if [ "$1" = "configure" ]
+then
+
+    # TBD: If we need to ask the user for config info such as 'use lightweight/standalone mode?', 
+    #   then look at Glance's glance-api.postinst
+    # . /usr/share/debconf/confmodule
+
+    chown keep:keep /var/lib/glance -R
+fi
+
+#DEBHELPER#
