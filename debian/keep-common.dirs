@@ -1,3 +1,4 @@
-/etc/keep
-/var/lib/keep
-/var/lib/keep/temp
+/etc/keep/
+/var/lib/keep/
+/var/lib/keep/temp/
+/var/log/keep/
