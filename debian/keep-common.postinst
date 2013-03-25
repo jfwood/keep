@@ -18,6 +18,10 @@ then
     chmod 0750 /var/log/keep/
     chown keep:keep -R /var/lib/keep/ /etc/keep/
     chmod 0700 /etc/keep/
+
+    # TBD: Replace these pip requirements with a true Debian package equivalent (via stdeb perhaps).
+    pip install uwsgi
+    pip install falcon
 fi
 
 #DEBHELPER#

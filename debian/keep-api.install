@@ -1,2 +1,3 @@
 etc/keep/keep-api.ini etc/keep
+etc/keep/config.py etc/keep
 usr/bin/keep-api
