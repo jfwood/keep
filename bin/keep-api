@@ -3,13 +3,13 @@
 # keep-api - Use uwsgi to run Cloud Keep python and wsgi web app.
 
 PKG=keep
-#PATH=/opt/uwsgi:/sbin:/bin:/usr/sbin:/usr/bin:/etc/$PKG
-VENV=.v$PKG
+PATH=/opt/uwsgi:/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin:/etc/$PKG
+#VENV=.v$PKG
 CMMD=uwsgi
 #CMMD=/usr/local/bin/$VENV/bin/uwsgi
 #DAEMON=/opt/uwsgi/uwsgi
 
-OWNER=cloud_keep
+OWNER=keep
 
 NAME=keep-api
 DESC='Cloud Keep API start script'
@@ -17,6 +17,7 @@ CONF_FILE=/etc/$PKG/keep-api.ini
 
 set -e
 
-CMMD_OPTS="-H /usr/local/bin/$VENV --ini $CONF_FILE"
-source /usr/local/bin/$VENV/bin/activate
+#CMMD_OPTS="-H /usr/local/bin/$VENV --ini $CONF_FILE"
+CMMD_OPTS="--ini $CONF_FILE"
+#source /usr/local/bin/$VENV/bin/activate
 $CMMD $CMMD_OPTS
