@@ -9,7 +9,7 @@ then
     #   then look at Glance's glance-api.postinst
     # . /usr/share/debconf/confmodule
 
-    chown keep:keep /var/lib/glance -R
+    chown keep:keep /var/lib/keep -R
 fi
 
 #DEBHELPER#
