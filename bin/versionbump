@@ -24,13 +24,16 @@ Advance the version of this build
 
 import os
 import sys
+import datetime
 
 # Determine version of this application.
 PKG = "keep"
 VERSIONFILE = os.path.join(PKG, "version.py") 
+CHANGEFILE = os.path.join("debian", "changelog")
 current_dir = os.getcwd()
 if current_dir.endswith('bin'):
-    VERSIONFILE = os.path.join("..", PKG, "version.py") 
+    VERSIONFILE = os.path.join("..", PKG, "version.py")
+    CHANGEFILE = os.path.joih("..", "debian", "changelog") 
 
 def get_version():
     version = "unknown"
@@ -54,7 +57,7 @@ def bump_version(version):
     subs[last_index] = str(last_bumped) + 'dev'
     return '.'.join(subs)
          
-def update_version(version):
+def update_versionfile(version):
     temp_name = VERSIONFILE + "~"
     file_new = open(temp_name, 'w')
     try:
@@ -70,13 +73,32 @@ def update_version(version):
         file_new.close()
         os.rename(temp_name, VERSIONFILE)
 
+def update_changefile(version):
+    temp_name = CHANGEFILE + "~"
+    file_new = open(temp_name, 'w')
+    try:
+        with open(CHANGEFILE, 'r') as file_old:
+            for line in file_old:
+                if line.startswith(PKG):
+                    new_version_line = PKG + "(" + version + "-1) stable; urgency=high"
+                    file_new.write(new_version_line)
+                if 'john.wood' in line:
+                    now = datetime.datetime.now()
+                    now_text = now.strftime("%a, %d %m %Y %H:%M:%S %z")
+                    new_commiter_line = " -- John Wood <john.wood@rackspace.com>  " + now_text
+                else:
+                    file_new.write(line)
+    finally:
+        file_new.close()
+        os.rename(temp_name, VERSIONFILE)
+
 if __name__ == '__main__':
     version = get_version()
     if version:
         next = bump_version(version)
         print 'version: ', version
         print 'next ver: ', next
-        update_version(next)
+        update_versionfile(next)
 
 
 
