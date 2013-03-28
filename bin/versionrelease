@@ -24,14 +24,17 @@ Product a release version of this build (by removing the 'dev' suffix)
 
 import os
 import sys
+import datetime
 
 # Determine version of this application.
 PKG = "keep"
 VERSIONFILE = os.path.join(PKG, "version.py")
+CHANGEFILE = os.path.join("debian", "changelog")
 SIMPLEFILE = 'versiononly.txt' 
 current_dir = os.getcwd()
 if current_dir.endswith('bin'):
-    VERSIONFILE = os.path.join("..", PKG, "version.py") 
+    VERSIONFILE = os.path.join("..", PKG, "version.py")
+    CHANGEFILE = os.path.joih("..", "debian", "changelog")
 
 def get_version():
     version = "unknown"
@@ -56,7 +59,7 @@ def release_version(version):
     subs[last_index] = last_no_dev
     return '.'.join(subs)
          
-def update_version(version):
+def update_versionfile(version):
     temp_name = VERSIONFILE + "~"
     file_new = open(temp_name, 'w')
     try:
@@ -72,6 +75,26 @@ def update_version(version):
         file_new.close()
         os.rename(temp_name, VERSIONFILE)
 
+def update_changefile(version):
+    temp_name = CHANGEFILE + "~"
+    file_new = open(temp_name, 'w')
+    try:
+        with open(CHANGEFILE, 'r') as file_old:
+            for line in file_old:
+                if line.startswith(PKG):
+                    new_version_line = PKG + " (" + version + "-1) stable; urgency=high\n"
+                    file_new.write(new_version_line)
+                elif 'john.wood' in line:
+                    now = datetime.datetime.now()
+                    now_text = now.strftime("%a, %d %b %Y %H:%M:%S %z")
+                    new_commiter_line = " -- John Wood <john.wood@rackspace.com>  " + now_text + "\n"
+                    file_new.write(new_commiter_line)
+                else:
+                    file_new.write(line)
+    finally:
+        file_new.close()
+        os.rename(temp_name, CHANGEFILE)
+
 if __name__ == '__main__':
     version = get_version()
     if version:
@@ -79,7 +102,8 @@ if __name__ == '__main__':
         release = release_version(version)
         print 'version: ', version
         print 'release: ', release
-        update_version(release)
+        update_versionfile(release)
+        update_changefile(release)
 
         # Output the version number to a flat file.
         with open(SIMPLEFILE, 'w') as outver:
