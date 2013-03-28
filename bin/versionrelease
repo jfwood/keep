@@ -24,7 +24,7 @@ Product a release version of this build (by removing the 'dev' suffix)
 
 import os
 import sys
-import datetime
+from time import strftime
 
 # Determine version of this application.
 PKG = "keep"
@@ -85,8 +85,7 @@ def update_changefile(version):
                     new_version_line = PKG + " (" + version + "-1) stable; urgency=high\n"
                     file_new.write(new_version_line)
                 elif 'john.wood' in line:
-                    now = datetime.datetime.now()
-                    now_text = now.strftime("%a, %d %b %Y %H:%M:%S %z")
+                    now_text = strftime("%a, %d %b %Y %H:%M:%S %z")
                     new_commiter_line = " -- John Wood <john.wood@rackspace.com>  " + now_text + "\n"
                     file_new.write(new_commiter_line)
                 else:

@@ -1,5 +1,5 @@
-keep (0.1.48dev-1) stable; urgency=high
+keep (0.1.53dev-1) stable; urgency=high
 
-  * Initial upload.
+  * Updated version.
 
- -- John Wood <john.wood@rackspace.com>  Thu, 28 Mar 2013 09:31:22 
+ -- John Wood <john.wood@rackspace.com>  Thu, 28 Mar 2013 15:14:44 -0500
