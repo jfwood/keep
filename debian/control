@@ -6,8 +6,7 @@ Uploaders: John Wood <john.wood@rackspace.com>
 Build-Depends: debhelper (>= 7.0.50),
  po-debconf,
  python-all (>= 2.6.6-3~),
- sqlite3 
-Build-Depends-Indep:
+ sqlite3,
  curl,
  pep8,
  python-boto,
@@ -38,7 +37,7 @@ Vcs-Browser: https://github.com/jfwood/keep
 Vcs-Git: git://github.com/jfwood/keep.git
 
 Package: python-keep
-Architecture: all
+Architecture: amd64
 Section: python
 Depends: ${python:Depends}, ${misc:Depends},
  python-boto,
@@ -62,10 +61,10 @@ Description: OpenStack Key Management Service - Python client library
  This package contains the Python client libraries.
 
 Package: keep-common
-Architecture: all
+Architecture: amd64
 Section: python
 Depends: ${python:Depends}, ${misc:Depends},
- python-keep (= ${source:Version}),
+ python-keep (= ${binary:Version}),
  adduser,
  debconf,
 Description: OpenStack Key Management Service - common files
@@ -75,10 +74,10 @@ Description: OpenStack Key Management Service - common files
  This package contains common files for Keep.
 
 Package: keep-api
-Architecture: all
+Architecture: amd64
 Section: python
 Depends: ${python:Depends}, ${misc:Depends},
- keep-common (= ${source:Version})
+ keep-common (= ${binary:Version})
 Description: OpenStack Key Management Service - API Server
  The Keep project provides services for storing and retrieving sensitive 
  client information such as encryption keys.
@@ -86,9 +85,9 @@ Description: OpenStack Key Management Service - API Server
  This package contains the Keep API Server.
 
 Package: keep
-Architecture: all
+Architecture: amd64
 Section: python
-Depends: keep-api (= ${source:Version}),
+Depends: keep-api (= ${binary:Version}),
  ${misc:Depends}
 Description: OpenStack Key Management Service - metapackage
  The Keep project provides services for storing and retrieving sensitive 

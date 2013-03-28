@@ -1,4 +1,4 @@
-keep (0.1.42-1) unstable; urgency=high
+keep (0.1.42-1) stable; urgency=high
 
   * Initial upload.
 
