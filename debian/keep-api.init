@@ -40,6 +40,10 @@ do_stop()
 	start-stop-daemon --stop --quiet --retry=TERM/30/KILL/5 --pidfile $PIDFILE
 	RETVAL="$?"
 	rm -f $PIDFILE
+
+        # TBD: HACK ALERT! Need to figure out why uwsgi spawns a separate process!
+        killall -s SIGKILL uwsgi
+
 	return "$RETVAL"
 }
 
