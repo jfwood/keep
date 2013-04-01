@@ -3,7 +3,7 @@ Keep Style Commandments
 
 
 TBD: Translate the content below to the Keep project.
-
+...Adding cosmetic change to trigger build process...
 
 - Step 1: Read http://www.python.org/dev/peps/pep-0008/
 - Step 2: Read http://www.python.org/dev/peps/pep-0008/ again
